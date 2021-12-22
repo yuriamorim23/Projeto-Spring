@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.projetojava.cursomc.Produto;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -25,6 +25,7 @@ public class Categoria implements Serializable {
 	private String nome;
 	
 	
+	@JsonManagedReference // para vir os objetos associados na resposta HTTP
 	@ManyToMany(mappedBy = "categorias") // mapeamento do produto para relacionar
 	private List<Produto> produtos = new ArrayList<>(); // associado a produto
 	

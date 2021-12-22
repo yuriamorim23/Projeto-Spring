@@ -1,4 +1,4 @@
-package com.projetojava.cursomc;
+package com.projetojava.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import com.projetojava.cursomc.domain.Categoria;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
@@ -30,7 +30,7 @@ public class Produto implements Serializable {
 	
 	private Double preco;
 	
-	
+	@JsonBackReference // omissao da lista de categoria para produto Resposta JSON
 	@ManyToMany // relacionando tabela
 	@JoinTable(name = "PRODUTO_CATEGORIA",
 	 joinColumns = @JoinColumn(name = "produto_id"),

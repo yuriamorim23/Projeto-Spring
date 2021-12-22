@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.projetojava.cursomc.domain.Categoria;
+import com.projetojava.cursomc.domain.Produto;
 import com.projetojava.cursomc.repositories.CategoriaRepository;
 import com.projetojava.cursomc.repositories.ProdutoRepository;
 
