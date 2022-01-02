@@ -19,7 +19,7 @@ public class PedidoResource {
 	private PedidoService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)// para dizer que é um get
-	public ResponseEntity<?> find(@PathVariable Integer id) { // vai retornar a lista de abaixo
+	public ResponseEntity<Pedido> find(@PathVariable Integer id) { // vai retornar a lista de abaixo
 			Pedido obj = service.find(id);
 			return ResponseEntity.ok().body(obj);
 			

@@ -19,7 +19,7 @@ public class ClienteResource {
 	private ClienteService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)// para dizer que é um get
-	public ResponseEntity<?> find(@PathVariable Integer id) { // vai retornar a lista de abaixo
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) { // vai retornar a lista de abaixo
 			Cliente obj = service.find(id);
 			return ResponseEntity.ok().body(obj);
 			
