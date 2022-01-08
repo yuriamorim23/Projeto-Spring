@@ -2,7 +2,7 @@ package com.projetojava.cursomc.services;
 
 import java.util.Optional;
 
-import org.hibernate.ObjectNotFoundException;
+import com.projetojava.cursomc.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +16,10 @@ public class PedidoService {
 	private PedidoRepository repo;
 	
 	// codigo para buscar por id, vamos agora mudar no Resource o RequestMapping com value="/{id}"
-	public Pedido find(Integer id) {
-		 Optional<Pedido> obj = repo.findById(id);
-		 if (obj == null) {
-			 throw new ObjectNotFoundException("Objeto nao encontrado! Id: " + id
-					 + ", Tipo: " + Pedido.class.getName(), null);
-					 
-		 }
-		return obj.orElse(null);
+	public Pedido find(Integer id) { 
+		 Optional<Pedido> obj = repo.findById(id); 
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName(), null));
 	}
 	
 }

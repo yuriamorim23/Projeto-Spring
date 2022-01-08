@@ -3,7 +3,7 @@
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.ObjectNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -15,6 +15,7 @@ import com.projetojava.cursomc.domain.Categoria;
 import com.projetojava.cursomc.dto.CategoriaDTO;
 import com.projetojava.cursomc.repositories.CategoriaRepository;
 import com.projetojava.cursomc.services.exception.DataIntegrityException;
+import com.projetojava.cursomc.services.exception.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -23,14 +24,10 @@ public class CategoriaService {
 	private CategoriaRepository repo;
 	
 	// codigo para buscar por id, vamos agora mudar no Resource o RequestMapping com value="/{id}"
-	public Categoria find(Integer id) {
-		 Optional<Categoria> obj = repo.findById(id);
-		 if (obj == null) {
-			 throw new ObjectNotFoundException("Objeto nao encontrado! Id: " + id
-					 + ", Tipo: " + Categoria.class.getName(), null);
-					 
-		 }
-		return obj.orElse(null);
+	public Categoria find(Integer id) { 
+		 Optional<Categoria> obj = repo.findById(id); 
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName(), null));
 	}
 	
 	public Categoria insert(Categoria obj) { //metodo get
