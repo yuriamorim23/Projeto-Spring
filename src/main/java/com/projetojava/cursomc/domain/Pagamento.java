@@ -12,11 +12,13 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.projetojava.cursomc.domain.enums.EstadoPagamento;
 
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED) // necessario para superclass
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") // campo adicional @type
 public abstract class Pagamento implements Serializable { // o abstract serve para garantir que ninguem possa estanciar essa classe
 	private static final long serialVersionUID = 1L;
 

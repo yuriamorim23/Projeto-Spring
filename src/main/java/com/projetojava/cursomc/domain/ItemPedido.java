@@ -3,7 +3,6 @@ package com.projetojava.cursomc.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
@@ -45,9 +44,19 @@ public class ItemPedido implements Serializable {
 		return id.getPedido();
 	}
 	
+	public void setPedido(Pedido pedido) {
+		id.setPedido(pedido);
+	}
+	
 	public Produto getProduto() {
 		return id.getProduto();
 	}
+	
+	
+	public void setProduto(Produto produto) {
+		id.setProduto(produto);
+	}
+	
 	
 	public ItemPedidoPk getId() {
 		return id;
@@ -97,6 +106,5 @@ public class ItemPedido implements Serializable {
 		ItemPedido other = (ItemPedido) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 }
