@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.projetojava.cursomc.domain.Cidade;
 import com.projetojava.cursomc.domain.Cliente;
 import com.projetojava.cursomc.domain.Endereco;
+import com.projetojava.cursomc.domain.Pedido;
 import com.projetojava.cursomc.domain.enums.TipoCliente;
 import com.projetojava.cursomc.dto.ClienteDTO;
 import com.projetojava.cursomc.dto.ClienteNewDTO;
@@ -35,14 +36,11 @@ public class ClienteService {
 	
 	// codigo para buscar por id, vamos agora mudar no Resource o RequestMapping com value="/{id}"
 	public Cliente find(Integer id) {
-		 Optional<Cliente> obj = repo.findById(id);
-		 if (obj == null) {
-			 throw new ObjectNotFoundException("Objeto nao encontrado! Id: " + id
-					 + ", Tipo: " + Cliente.class.getName(), null);
-					 
-		 }
-		return obj.orElse(null);
+		Optional<Cliente> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName(), null));
 	}
+	
 	
 	@Transactional
 	public Cliente insert(Cliente obj) {
