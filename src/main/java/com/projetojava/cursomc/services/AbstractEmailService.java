@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -17,6 +18,7 @@ import com.projetojava.cursomc.domain.Pedido;
 
 // configuracoes do servico de email
 
+@Component
 public abstract class AbstractEmailService implements EmailService {
 
 	@Value("${default.sender}")
@@ -25,7 +27,8 @@ public abstract class AbstractEmailService implements EmailService {
 	@Autowired
 	private TemplateEngine templateEngine;
 	
-	@Autowired
+	
+	@Autowired // O ERRO NA CALSSE PRECISA ADD O HOST spring.mail.host: 127.0.0.1 NA PROPERTIES TEST
 	private JavaMailSender javaMailSender;
 	
 	@Override
@@ -61,7 +64,7 @@ public abstract class AbstractEmailService implements EmailService {
 		}
 	}
 
-
+	
 	protected MimeMessage prepareMimeMessageFromPedido(Pedido obj) throws MessagingException {
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper mmh = new MimeMessageHelper(mimeMessage, true);
