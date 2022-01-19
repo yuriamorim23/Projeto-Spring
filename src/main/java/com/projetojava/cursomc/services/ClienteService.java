@@ -18,11 +18,14 @@ import com.projetojava.cursomc.domain.Cidade;
 import com.projetojava.cursomc.domain.Cliente;
 import com.projetojava.cursomc.domain.Endereco;
 import com.projetojava.cursomc.domain.Pedido;
+import com.projetojava.cursomc.domain.enums.Perfil;
 import com.projetojava.cursomc.domain.enums.TipoCliente;
 import com.projetojava.cursomc.dto.ClienteDTO;
 import com.projetojava.cursomc.dto.ClienteNewDTO;
 import com.projetojava.cursomc.repositories.ClienteRepository;
 import com.projetojava.cursomc.repositories.EnderecoRepository;
+import com.projetojava.cursomc.security.UserSS;
+import com.projetojava.cursomc.services.exception.AuthorizationException;
 import com.projetojava.cursomc.services.exception.DataIntegrityException;
 
 @Service
@@ -41,6 +44,10 @@ public class ClienteService {
 	// codigo para buscar por id, vamos agora mudar no Resource o RequestMapping com value="/{id}"
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName(), null));
 	}
